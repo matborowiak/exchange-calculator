@@ -1,0 +1,29 @@
+@font-face {
+  font-family: 'Basier Circle';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Basier Circle Regular'),
+    url('BasierCircle-Regular.woff') format('woff');
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Basier Circle', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f6f7f8;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+p {
+  color: #717171;
+  font-size: 1.6rem;
+}
