@@ -6,6 +6,10 @@
   }
 }
 
+.Calculator__wrapper-flex {
+  display: flex;
+}
+
 .Calculator__wrapper {
   display: flex;
   flex-direction: column;
@@ -62,7 +66,7 @@
   justify-content: space-between;
 }
 
-.Calculator__exchange-field__input {
+.Calculator__input {
   color: #52616b;
   background: transparent;
   border: none;
@@ -75,12 +79,19 @@
   }
 }
 
-.Calculator__exchange-field__input:focus {
+.Calculator__input:focus {
   border-radius: 8px;
   border-color: #aaa;
   box-shadow: 0 0 1px 3px rgba(59, 153, 252, 0.7);
   box-shadow: 0 0 0 3px -moz-mac-focusring;
   outline: none;
+}
+
+.Calculator__input-plusminus {
+  margin: 0 0 0 24px;
+  line-height: 48px;
+  font-size: 3.2rem;
+  font-weight: 800;
 }
 
 .Calculator__rate {
@@ -138,13 +149,6 @@
   box-shadow: 0 0 1px 3px rgba(59, 153, 252, 0.7);
   box-shadow: 0 0 0 3px -moz-mac-focusring;
   outline: none;
-}
-
-.Calculator__exchange-field__exchange__plusminus {
-  margin: 0 0 0 24px;
-  line-height: 48px;
-  font-size: 3.2rem;
-  font-weight: 800;
 }
 
 .select-css {

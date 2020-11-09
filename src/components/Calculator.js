@@ -188,14 +188,12 @@ const Calculator = ({
               selectForwardHandler={selectCurrencyFromHandler}
               availableCurrencies={availableCurrencies}
             />
-            <div style={{ display: 'flex' }}>
-              <p
-                className={`${componentStyle}__exchange-field__exchange__plusminus`}
-              >
+            <div className={`${componentStyle}__wrapper-flex`}>
+              <p className={`${componentStyle}__input-plusminus`}>
                 {state.youHave !== '' && state.youHave > 0 && '-'}
               </p>
               <input
-                className={`${componentStyle}__exchange-field__input`}
+                className={`${componentStyle}__input`}
                 value={state.youHave}
                 type="string"
                 onChange={handleInput}
@@ -204,7 +202,7 @@ const Calculator = ({
               />
             </div>
           </div>
-          <div style={{ display: 'flex' }}>
+          <div className={`${componentStyle}__wrapper-flex`}>
             <p>{`You have: ${
               currencySymbols[state.haveCurrency.toUpperCase()]
             } ${pockets[state.haveCurrency].toFixed(2)}`}</p>
@@ -222,14 +220,12 @@ const Calculator = ({
               selectForwardHandler={selectCurrencyToHandler}
               availableCurrencies={availableCurrencies}
             />
-            <div style={{ display: 'flex' }}>
-              <p
-                className={`${componentStyle}__exchange-field__exchange__plusminus`}
-              >
+            <div className={`${componentStyle}__wrapper-flex`}>
+              <p className={`${componentStyle}__input-plusminus`}>
                 {state.youHave !== '' && state.youHave > 0 && '+'}
               </p>
               <input
-                className={`${componentStyle}__exchange-field__input`}
+                className={`${componentStyle}__input`}
                 value={state.youGet}
                 type="string"
                 placeholder={placeholder}
@@ -238,7 +234,7 @@ const Calculator = ({
               />
             </div>
           </div>
-          <div style={{ display: 'flex' }}>
+          <div className={`${componentStyle}__wrapper-flex`}>
             <p>
               {`You have: ${
                 currencySymbols[state.getCurrency.toUpperCase()]
