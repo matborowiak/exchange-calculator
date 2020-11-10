@@ -18,18 +18,13 @@ const ButtonExchange = ({
     setPockets(newPocketsState)
     setState({ ...state, youHave: '', youGet: '' })
   }
-
   return (
-    <button // refactor disabled prop
+    <button
       className={`${componentStyle}__button`}
       disabled={
         fetchRateState.loading ||
         fetchRateState.error ||
-        youHave === '' ||
-        youHave === '0' ||
-        youHave === '0.' ||
-        youHave === '0.0' ||
-        youHave === '0.00'
+        !(parseFloat(youHave) > 0)
       }
       onClick={handlerExchange}
     >
