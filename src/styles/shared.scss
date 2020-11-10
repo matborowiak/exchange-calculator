@@ -1,0 +1,19 @@
+// imports
+@import '../../src/styles/normalize.css';
+
+// variables
+$brk-mobile: 410px;
+
+// mixins
+@mixin revolut-shadow {
+  box-shadow: rgba(21, 23, 26, 0.05) 0px 0.05rem 0.14rem 0px,
+    rgba(21, 23, 26, 0.05) 0px 0.2rem 0.4rem 0px,
+    rgba(21, 23, 26, 0.04) 0px -1px 0px 0px;
+}
+
+@mixin revolut-focus {
+  border-color: #aaa;
+  box-shadow: 0 0 1px 3px rgba(59, 153, 252, 0.7);
+  box-shadow: 0 0 0 3px -moz-mac-focusring;
+  outline: none;
+}
