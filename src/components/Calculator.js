@@ -1,32 +1,21 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
+
+import ButtonExchange from './ButtonExchange'
+import ButtonFlip from './ButtonFlip'
+import CalculatorInput from './CalculatorInput'
+import DisplayError from './DisplayError'
+import DisplayRate from './DisplayRate'
+import PocketMoney from './PocketMoney'
+import SelectCurrency from './SelectCurrency'
+import WrapperFlexRow from './WrapperFlexRow'
 
 import useInterval from '../functions/useInterval'
 import fetchRates from '../functions/fetchRates'
-import currencySymbols from '../functions/currencySymbols'
-
-import flip from '../assets/exchange.svg'
 
 import './Calculator.scss'
 
-const SelectCurrency = ({
-  value,
-  selectForwardHandler,
-  availableCurrencies,
-}) => {
-  return (
-    <>
-      <select
-        className="select-css"
-        value={value}
-        onChange={selectForwardHandler}
-      >
-        {availableCurrencies.map((currency) => (
-          <option value={currency}>{currency.toUpperCase()}</option>
-        ))}
-      </select>
-    </>
-  )
-}
+const inputSanitizer = RegExp(/^\d+\.?(\d{1,2})?$/)
+const componentStyle = 'Calculator'
 
 const Calculator = ({
   exchangeBaseCurrency,
@@ -54,13 +43,65 @@ const Calculator = ({
 
   const [rate, setRate] = useState(1)
 
-  useEffect(() => {
-    recalculate()
-  }, [fetchRateState.pair, rate])
+  const calculateExchange = useCallback(
+    (value) => {
+      if (value.length === 0 || inputSanitizer.test(value)) {
+        if (value > pockets[state.haveCurrency]) {
+          setFetchRateState({
+            loading: fetchRateState.loading,
+            error: 'Not enough funds!!!',
+          })
+        }
+        setState({
+          haveCurrency: state.haveCurrency,
+          getCurrency: state.getCurrency,
+          youHave: value,
+          youGet: (value * rate).toFixed(2),
+        })
+      }
+    },
+    [
+      state.haveCurrency,
+      state.getCurrency,
+      rate,
+      pockets,
+      fetchRateState.loading,
+      setFetchRateState,
+    ]
+  )
+
+  const handleInput = (e) => {
+    const { value } = e.target
+    calculateExchange(value)
+  }
 
   useEffect(() => {
-    calcRate()
-  }, [fetchRateState.pair, state.haveCurrency, state.getCurrency])
+    calculateExchange(state.youHave)
+  }, [state.youHave, calculateExchange])
+
+  useEffect(() => {
+    const getCurrency = state.getCurrency.toUpperCase()
+    const haveCurrency = state.haveCurrency.toUpperCase()
+    if (fetchRateState.pair) {
+      if (state.haveCurrency === exchangeBaseCurrency) {
+        const getRate = fetchRateState.pair[getCurrency]
+        setRate(getRate)
+      } else if (state.getCurrency === exchangeBaseCurrency) {
+        const haveRate = fetchRateState.pair[haveCurrency]
+        const getRate = 1
+        setRate(getRate / haveRate)
+      } else {
+        const haveRate = fetchRateState.pair[haveCurrency]
+        const getRate = fetchRateState.pair[getCurrency]
+        setRate(getRate / haveRate)
+      }
+    }
+  }, [
+    fetchRateState.pair,
+    state.haveCurrency,
+    state.getCurrency,
+    exchangeBaseCurrency,
+  ])
 
   useInterval(() => {
     fetchRates()
@@ -74,50 +115,9 @@ const Calculator = ({
       .catch((err) =>
         setFetchRateState({ ...fetchRateState, error: err, loading: false })
       )
-  }, 2000)
+  }, 10000)
 
-  const inputSanitizer = RegExp(/^\d+\.?(\d{1,2})?$/) // works like a charm
-  const componentStyle = 'Calculator'
-  const placeholder = '0.00'
-
-  const handlerExchange = (e) => {
-    e.preventDefault()
-    const newPocketsState = pockets
-    newPocketsState[state.haveCurrency] -= parseFloat(state.youHave)
-    newPocketsState[state.getCurrency] += parseFloat(state.youGet)
-    setPockets(newPocketsState)
-    setState({ ...state, youHave: '', youGet: '' })
-  }
-
-  const calcRate = () => {
-    if (fetchRateState.pair) {
-      if (state.haveCurrency === exchangeBaseCurrency) {
-        const haveRate = 1
-        const getRate = fetchRateState.pair[state.getCurrency.toUpperCase()]
-        setRate(getRate / haveRate)
-      } else if (state.getCurrency === exchangeBaseCurrency) {
-        const haveRate = fetchRateState.pair[state.haveCurrency.toUpperCase()]
-        const getRate = 1
-        setRate(getRate / haveRate)
-      } else {
-        const haveRate = fetchRateState.pair[state.haveCurrency.toUpperCase()]
-        const getRate = fetchRateState.pair[state.getCurrency.toUpperCase()]
-        setRate(getRate / haveRate)
-      }
-    }
-  }
-
-  const recalculate = () => {
-    const eventMock = {
-      target: {
-        value: state.youHave,
-      },
-    }
-    handleInput(eventMock)
-  }
-
-  const handleFlip = (e) => {
-    e && e.preventDefault()
+  const handleFlip = () => {
     setState({
       ...state,
       haveCurrency: state.getCurrency,
@@ -151,114 +151,51 @@ const Calculator = ({
     }
   }
 
-  const handleInput = (e) => {
-    const { value } = e.target
-    if (value.length === 0 || inputSanitizer.test(value)) {
-      if (value > pockets[state.haveCurrency]) {
-        setFetchRateState({ ...fetchRateState, error: 'Not enough funds!!!' })
-      }
-      setState({
-        ...state,
-        youHave: value,
-        youGet: (value * rate).toFixed(2),
-      })
-    }
-  }
-
   return (
     <div className={componentStyle}>
       <form className={`${componentStyle}__wrapper`}>
-        <div className={`${componentStyle}__rate`}>
-          <div className={`${componentStyle}__rate__wrapper`}>
-            {fetchRateState.loading === true ? (
-              <p>...loading </p>
-            ) : (
-              <p>
-                {`${currencySymbols[state.haveCurrency.toUpperCase()]}1 = ${
-                  currencySymbols[state.getCurrency.toUpperCase()]
-                }${rate.toFixed(4)}`}
-              </p>
-            )}
-          </div>
-        </div>
-        <div className={`${componentStyle}__exchange-field`}>
-          <div className={`${componentStyle}__exchange-field__exchange`}>
+        <DisplayRate
+          state={state}
+          rate={rate}
+          loading={fetchRateState.loading}
+        />
+        <div>
+          <WrapperFlexRow>
             <SelectCurrency
               value={state.haveCurrency}
-              selectForwardHandler={selectCurrencyFromHandler}
+              selectHandler={selectCurrencyFromHandler}
               availableCurrencies={availableCurrencies}
             />
-            <div className={`${componentStyle}__wrapper-flex`}>
-              <p className={`${componentStyle}__input-plusminus`}>
-                {state.youHave !== '' && state.youHave > 0 && '-'}
-              </p>
-              <input
-                className={`${componentStyle}__input`}
-                value={state.youHave}
-                type="string"
-                onChange={handleInput}
-                placeholder={placeholder}
-                maxLength="20"
-              />
-            </div>
-          </div>
-          <div className={`${componentStyle}__wrapper-flex`}>
-            <p>{`You have: ${
-              currencySymbols[state.haveCurrency.toUpperCase()]
-            } ${pockets[state.haveCurrency].toFixed(2)}`}</p>
-          </div>
+            <CalculatorInput
+              value={state.youHave}
+              handleInput={handleInput}
+              plusminus="-"
+            />
+          </WrapperFlexRow>
+          <PocketMoney pockets={pockets} currency={state.haveCurrency} />
         </div>
-
-        <button onClick={handleFlip} className={`${componentStyle}__flipper`}>
-          <img alt="Flip currency" src={flip} />
-        </button>
-
-        <div className={`${componentStyle}__exchange-field`}>
-          <div className={`${componentStyle}__exchange-field__exchange`}>
+        <ButtonFlip state={state} setState={setState} />
+        <div>
+          <WrapperFlexRow>
             <SelectCurrency
               value={state.getCurrency}
-              selectForwardHandler={selectCurrencyToHandler}
+              selectHandler={selectCurrencyToHandler}
               availableCurrencies={availableCurrencies}
             />
-            <div className={`${componentStyle}__wrapper-flex`}>
-              <p className={`${componentStyle}__input-plusminus`}>
-                {state.youHave !== '' && state.youHave > 0 && '+'}
-              </p>
-              <input
-                className={`${componentStyle}__input`}
-                value={state.youGet}
-                type="string"
-                placeholder={placeholder}
-                maxLength="20"
-                readOnly
-              />
-            </div>
-          </div>
-          <div className={`${componentStyle}__wrapper-flex`}>
-            <p>
-              {`You have: ${
-                currencySymbols[state.getCurrency.toUpperCase()]
-              } ${pockets[state.getCurrency].toFixed(2)}`}
-            </p>
-          </div>
+            <CalculatorInput readOnly value={state.youGet} plusminus="+" />
+          </WrapperFlexRow>
+          <PocketMoney pockets={pockets} currency={state.getCurrency} />
         </div>
-        <button // refactor disabled prop
-          className={`${componentStyle}__button`}
-          disabled={
-            fetchRateState.loading ||
-            fetchRateState.error ||
-            state.youHave === '' ||
-            state.youHave === '0' ||
-            state.youHave === '0.' ||
-            state.youHave === '0.0' ||
-            state.youHave === '0.00'
-          }
-          onClick={handlerExchange}
-        >
-          EXCHANGE
-        </button>
+        <ButtonExchange
+          fetchRateState={fetchRateState}
+          pockets={pockets}
+          setPockets={setPockets}
+          state={state}
+          setState={setState}
+          youHave={state.youHave}
+        />
       </form>
-      {fetchRateState.error && <p>{fetchRateState.error.toString()}</p>}
+      <DisplayError error={fetchRateState.error} />
     </div>
   )
 }

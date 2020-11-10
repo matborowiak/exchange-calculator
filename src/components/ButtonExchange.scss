@@ -1,0 +1,32 @@
+@import '../styles/shared.scss';
+
+.Calculator__button {
+  height: 40px;
+  border: none;
+  background: #007dfb;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 1.4rem;
+  font-weight: 300;
+  padding: 0.8rem;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.Calculator__button:hover {
+  background: #0063c7;
+}
+
+.Calculator__button:active {
+  background: #616e7c;
+}
+
+.Calculator__button:disabled {
+  background: #616e7c;
+  cursor: default;
+}
+
+.Calculator__button:focus {
+  @include revolut-focus;
+}

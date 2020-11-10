@@ -1,0 +1,30 @@
+@import '../styles/shared.scss';
+
+.Calculator__input {
+  color: #52616b;
+  background: transparent;
+  border: none;
+  text-align: left;
+  font-size: 3.2rem;
+  font-weight: 600;
+  width: 130px;
+  @media (min-width: $brk-mobile) {
+    width: 170px;
+  }
+}
+
+.Calculator__input:focus {
+  border-radius: 8px;
+  @include revolut-focus;
+}
+
+.Calculator__input-plusminus {
+  margin: 0 0 0 24px;
+  line-height: 48px;
+  font-size: 3.2rem;
+  font-weight: 800;
+}
+
+.Calculator__wrapper-flex {
+  display: flex;
+}

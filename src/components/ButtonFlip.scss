@@ -1,0 +1,18 @@
+@import '../styles/shared.scss';
+
+.Calculator__flipper {
+  @include revolut-shadow;
+  width: 50px;
+  border: none;
+  background: #ffffff;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #52616b;
+  font-size: 1.4rem;
+  font-weight: 300;
+  padding: 1rem 0 0.5rem 0;
+  transition: background 0.3s ease, color 0.3s ease;
+  img {
+    width: 25px;
+  }
+}

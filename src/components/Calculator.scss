@@ -1,7 +1,9 @@
+@import '../styles/shared.scss';
+
 .Calculator {
   text-align: center;
   width: 100%;
-  @media (min-width: 410px) {
+  @media (min-width: $brk-mobile) {
     width: 380px;
   }
 }
@@ -11,6 +13,7 @@
 }
 
 .Calculator__wrapper {
+  @include revolut-shadow;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -18,215 +21,15 @@
   height: 400px;
   padding: 2rem;
   border-radius: 13px;
-  background-color: white;
-  box-shadow: rgba(21, 23, 26, 0.05) 0px 0.05rem 0.14rem 0px,
-    rgba(21, 23, 26, 0.05) 0px 0.2rem 0.4rem 0px,
-    rgba(21, 23, 26, 0.04) 0px -1px 0px 0px;
-}
-
-.Calculator__flipper {
-  width: 50px;
-  border: none;
-  background: #ffffff;
-  box-shadow: rgba(21, 23, 26, 0.04) 0px 0.05rem 0.14rem 0px,
-    rgba(21, 23, 26, 0.05) 0px 0.2rem 0.4rem 0px,
-    rgba(21, 23, 26, 0.05) 0px -1px 0px 0px;
-  border-radius: 8px;
-  cursor: pointer;
-  color: #52616b;
-  font-size: 1.4rem;
-  font-weight: 300;
-  padding: 1rem 0 0.5rem 0;
-  transition: background 0.3s ease, color 0.3s ease;
-  img {
-    width: 25px;
-  }
-  img:focus {
-    border-radius: 8px;
-    border-color: #aaa;
-    box-shadow: 0 0 1px 3px rgba(59, 153, 252, 0.7);
-    box-shadow: 0 0 0 3px -moz-mac-focusring;
-    outline: none;
-  }
+  background-color: #ffffff;
 }
 
 .Calculator__flipper:focus {
   border-radius: 8px;
-  border-color: #aaa;
-  box-shadow: 0 0 1px 3px rgba(59, 153, 252, 0.7);
-  box-shadow: 0 0 0 3px -moz-mac-focusring;
-  outline: none;
+  @include revolut-focus;
 }
 
 .Calculator__exchange-field {
-}
-
-.Calculator__exchange-field__exchange {
   display: flex;
   justify-content: space-between;
-}
-
-.Calculator__input {
-  color: #52616b;
-  background: transparent;
-  border: none;
-  text-align: left;
-  font-size: 3.2rem;
-  font-weight: 600;
-  width: 130px;
-  @media (min-width: 410px) {
-    width: 170px;
-  }
-}
-
-.Calculator__input:focus {
-  border-radius: 8px;
-  border-color: #aaa;
-  box-shadow: 0 0 1px 3px rgba(59, 153, 252, 0.7);
-  box-shadow: 0 0 0 3px -moz-mac-focusring;
-  outline: none;
-}
-
-.Calculator__input-plusminus {
-  margin: 0 0 0 24px;
-  line-height: 48px;
-  font-size: 3.2rem;
-  font-weight: 800;
-}
-
-.Calculator__rate {
-  display: flex;
-  justify-content: center;
-}
-
-.Calculator__rate__wrapper {
-  width: 110px;
-  background: #ffffff;
-  text-align: center;
-  max-width: 50%;
-  box-sizing: border-box;
-  box-shadow: rgba(21, 23, 26, 0.04) 0px 0.05rem 0.14rem 0px,
-    rgba(21, 23, 26, 0.05) 0px 0.2rem 0.4rem 0px,
-    rgba(21, 23, 26, 0.05) 0px -1px 0px 0px;
-  border-radius: 8px;
-  p {
-    line-height: 0.5rem;
-  }
-}
-
-.Calculator__rate__wrapper:hover {
-  cursor: default;
-}
-
-.Calculator__button {
-  height: 40px;
-  border: none;
-  background: #007dfb;
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 8px;
-  cursor: pointer;
-  color: white;
-  font-size: 1.4rem;
-  font-weight: 300;
-  padding: 0.8rem;
-  transition: background 0.3s ease, color 0.3s ease;
-}
-
-.Calculator__button:hover {
-  background: #0063c7;
-}
-
-.Calculator__button:active {
-  background: #616e7c;
-}
-
-.Calculator__button:disabled {
-  background: #616e7c;
-  cursor: default;
-}
-
-.Calculator__button:focus {
-  box-shadow: 0 0 1px 3px rgba(59, 153, 252, 0.7);
-  box-shadow: 0 0 0 3px -moz-mac-focusring;
-  outline: none;
-}
-
-.select-css {
-  cursor: pointer;
-  display: block;
-  font-size: 1.6rem;
-  line-height: 1.3;
-  font-family: 'Basier Circle', sans-serif;
-  font-weight: 700;
-  color: #52616b;
-  padding: 0.6em 1.4em 0.5em 0.8em;
-  width: 110px;
-  max-width: 50%; /* useful when width is set to anything other than 100% */
-  box-sizing: border-box;
-  margin: 0;
-  border: none;
-  box-shadow: rgba(21, 23, 26, 0.04) 0px 0.05rem 0.14rem 0px,
-    rgba(21, 23, 26, 0.05) 0px 0.2rem 0.4rem 0px,
-    rgba(21, 23, 26, 0.05) 0px -1px 0px 0px;
-  border-radius: 0.4em;
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  appearance: none;
-  background-color: #fff;
-  /* note: bg image below uses 2 urls. The first is an svg data uri for the arrow icon, and the second is the gradient. 
-        for the icon, if you want to change the color, be sure to use `%23` instead of `#`, since it's a url. You can also swap in a different svg icon or an external image reference
-        
-    */
-  background-image: url('../assets/chevron-down.svg');
-
-  background-repeat: no-repeat, repeat;
-  /* arrow icon position (1em from the right, 50% vertical) , then gradient position*/
-  background-position: right 0.4em top 50%, 0 0;
-  /* icon size, then gradient */
-  background-size: 1.4em auto, 100%;
-
-  @media (min-width: 410px) {
-    font-size: 2rem;
-  }
-}
-/* Hide arrow icon in IE browsers */
-.select-css::-ms-expand {
-  display: none;
-}
-/* Hover style */
-.select-css:hover {
-  border-color: #888;
-}
-/* Focus style */
-.select-css:focus {
-  border-color: #aaa;
-  box-shadow: 0 0 1px 3px rgba(59, 153, 252, 0.7);
-  box-shadow: 0 0 0 3px -moz-mac-focusring;
-  outline: none;
-}
-
-/* Set options to normal weight */
-.select-css option {
-  font-weight: normal;
-}
-
-/* Support for rtl text, explicit support for Arabic and Hebrew */
-*[dir='rtl'] .select-css,
-:root:lang(ar) .select-css,
-:root:lang(iw) .select-css {
-  background-position: left 0.7em top 50%, 0 0;
-  padding: 0.6em 0.8em 0.5em 1.4em;
-}
-
-/* Disabled styles */
-.select-css:disabled,
-.select-css[aria-disabled='true'] {
-  color: #aaa;
-  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22graytext%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'),
-    linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
-}
-
-.select-css:disabled:hover,
-.select-css[aria-disabled='true'] {
-  border-color: #aaa;
 }

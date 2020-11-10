@@ -1,0 +1,23 @@
+@import '../styles/shared.scss';
+
+.Calculator__rate {
+  display: flex;
+  justify-content: center;
+}
+
+.Calculator__rate__wrapper {
+  @include revolut-shadow;
+  width: 110px;
+  background: #ffffff;
+  text-align: center;
+  max-width: 50%;
+  box-sizing: border-box;
+  border-radius: 8px;
+  p {
+    line-height: 0.5rem;
+  }
+}
+
+.Calculator__rate__wrapper:hover {
+  cursor: default;
+}
