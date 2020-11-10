@@ -48,8 +48,15 @@ const Calculator = ({
       if (value.length === 0 || inputSanitizer.test(value)) {
         if (value > pockets[state.haveCurrency]) {
           setFetchRateState({
+            pair: fetchRateState.pair,
             loading: fetchRateState.loading,
             error: 'Not enough funds!!!',
+          })
+        } else {
+          setFetchRateState({
+            pair: fetchRateState.pair,
+            loading: fetchRateState.loading,
+            error: false,
           })
         }
         setState({
@@ -66,6 +73,7 @@ const Calculator = ({
       rate,
       pockets,
       fetchRateState.loading,
+      fetchRateState.pair,
       setFetchRateState,
     ]
   )
@@ -108,13 +116,18 @@ const Calculator = ({
       .then((pair) => {
         setFetchRateState({
           pair,
-          error: false,
+          error: fetchRateState.error ? fetchRateState.error : false,
           loading: false,
         })
       })
-      .catch((err) =>
-        setFetchRateState({ ...fetchRateState, error: err, loading: false })
-      )
+      .catch((err) => {
+        console.log(err)
+        setFetchRateState({
+          ...fetchRateState,
+          error: 'Connection error!',
+          loading: false,
+        })
+      })
   }, 10000)
 
   const handleFlip = () => {
@@ -151,6 +164,7 @@ const Calculator = ({
     }
   }
 
+  console.log(fetchRateState.pair)
   return (
     <div className={componentStyle}>
       <form className={`${componentStyle}__wrapper`}>
