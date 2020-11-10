@@ -2,7 +2,7 @@ import flip from '../assets/exchange.svg'
 
 import './ButtonFlip.scss'
 
-const componentStyle = 'Calculator'
+const componentStyle = 'ButtonFlip'
 
 const ButtonFlip = ({ handleFlip }) => {
   return (

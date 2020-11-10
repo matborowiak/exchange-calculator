@@ -1,11 +1,11 @@
 @import '../styles/shared.scss';
 
-.Calculator__rate {
+.DisplayRate {
   display: flex;
   justify-content: center;
 }
 
-.Calculator__rate__wrapper {
+.DisplayRate__wrapper {
   @include revolut-shadow;
   width: 110px;
   background: #ffffff;
@@ -18,6 +18,6 @@
   }
 }
 
-.Calculator__rate__wrapper:hover {
+.DisplayRate__wrapper:hover {
   cursor: default;
 }

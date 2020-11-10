@@ -1,9 +1,9 @@
 import './WrapperFlexRow.scss'
 
-const componentStyle = 'Calculator'
+const componentStyle = 'WrapperFlexRow'
 
 const WrapperFlexRow = (props) => (
-  <div className={`${componentStyle}__exchange-field`}>{props.children}</div>
+  <div className={componentStyle}>{props.children}</div>
 )
 
 export default WrapperFlexRow

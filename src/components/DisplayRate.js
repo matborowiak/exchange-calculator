@@ -2,12 +2,12 @@ import currencySymbols from '../functions/currencySymbols'
 
 import './DisplayRate.scss'
 
-const componentStyle = 'Calculator'
+const componentStyle = 'DisplayRate'
 
 const DisplayRate = ({ rate, loading, state }) => {
   return (
-    <div className={`${componentStyle}__rate`}>
-      <div className={`${componentStyle}__rate__wrapper`}>
+    <div className={componentStyle}>
+      <div className={`${componentStyle}__wrapper`}>
         {loading === true ? (
           <p>...loading </p>
         ) : (

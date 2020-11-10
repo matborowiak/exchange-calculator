@@ -1,6 +1,6 @@
 @import '../styles/shared.scss';
 
-.Calculator__input {
+.CalculatorInput {
   color: #52616b;
   background: transparent;
   border: none;
@@ -13,18 +13,18 @@
   }
 }
 
-.Calculator__input:focus {
+.CalculatorInput:focus {
   border-radius: 8px;
   @include revolut-focus;
 }
 
-.Calculator__input-plusminus {
+.CalculatorInput__plusminus {
   margin: 0 0 0 24px;
   line-height: 48px;
   font-size: 3.2rem;
   font-weight: 800;
 }
 
-.Calculator__wrapper-flex {
+.CalculatorInput__wrapper-flex {
   display: flex;
 }

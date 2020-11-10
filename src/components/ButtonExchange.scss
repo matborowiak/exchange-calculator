@@ -1,6 +1,6 @@
 @import '../styles/shared.scss';
 
-.Calculator__button {
+.ButtonExchange {
   height: 40px;
   border: none;
   background: #007dfb;
@@ -14,19 +14,19 @@
   transition: background 0.3s ease, color 0.3s ease;
 }
 
-.Calculator__button:hover {
+.ButtonExchange:hover {
   background: #0063c7;
 }
 
-.Calculator__button:active {
+.ButtonExchange:active {
   background: #616e7c;
 }
 
-.Calculator__button:disabled {
+.ButtonExchange:disabled {
   background: #616e7c;
   cursor: default;
 }
 
-.Calculator__button:focus {
+.ButtonExchange:focus {
   @include revolut-focus;
 }

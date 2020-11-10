@@ -1,14 +1,14 @@
 import './CalculatorInput.scss'
 
-const componentStyle = 'Calculator'
+const componentStyle = 'CalculatorInput'
 
 const CalculatorInput = ({ value, handleInput, plusminus, readOnly }) => (
   <div className={`${componentStyle}__wrapper-flex`}>
-    <p className={`${componentStyle}__input-plusminus`}>
+    <p className={`${componentStyle}__plusminus`}>
       {value !== '' && value > 0 && plusminus}
     </p>
     <input
-      className={`${componentStyle}__input`}
+      className={`${componentStyle}`}
       value={value}
       type="string"
       readOnly={readOnly}

@@ -1,6 +1,6 @@
 import './ButtonExchange.scss'
 
-const componentStyle = 'Calculator'
+const componentStyle = 'ButtonExchange'
 
 const ButtonExchange = ({
   state,
@@ -20,7 +20,7 @@ const ButtonExchange = ({
   }
   return (
     <button
-      className={`${componentStyle}__button`}
+      className={componentStyle}
       disabled={
         fetchRateState.loading ||
         fetchRateState.error ||
