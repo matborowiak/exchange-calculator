@@ -7,7 +7,9 @@ const SelectCurrency = ({ value, selectHandler, availableCurrencies }) => {
     <>
       <select className={componentStyle} value={value} onChange={selectHandler}>
         {availableCurrencies.map((currency) => (
-          <option value={currency}>{currency.toUpperCase()}</option>
+          <option key={currency} value={currency}>
+            {currency.toUpperCase()}
+          </option>
         ))}
       </select>
     </>
