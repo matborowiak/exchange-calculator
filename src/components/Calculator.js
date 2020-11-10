@@ -130,7 +130,8 @@ const Calculator = ({
       })
   }, 10000)
 
-  const handleFlip = () => {
+  const handleFlip = (e) => {
+    e && e.preventDefault()
     setState({
       ...state,
       haveCurrency: state.getCurrency,
@@ -164,7 +165,6 @@ const Calculator = ({
     }
   }
 
-  console.log(fetchRateState.pair)
   return (
     <div className={componentStyle}>
       <form className={`${componentStyle}__wrapper`}>
@@ -188,7 +188,7 @@ const Calculator = ({
           </WrapperFlexRow>
           <PocketMoney pockets={pockets} currency={state.haveCurrency} />
         </div>
-        <ButtonFlip state={state} setState={setState} />
+        <ButtonFlip handleFlip={handleFlip} />
         <div>
           <WrapperFlexRow>
             <SelectCurrency
