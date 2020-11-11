@@ -20,6 +20,8 @@ const ButtonExchange = ({
   }
   return (
     <button
+      type="submit"
+      form="calculator"
       className={componentStyle}
       disabled={
         fetchRateState.loading ||

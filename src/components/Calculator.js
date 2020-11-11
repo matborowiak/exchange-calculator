@@ -167,7 +167,7 @@ const Calculator = ({
 
   return (
     <div className={componentStyle}>
-      <form className={`${componentStyle}__wrapper`}>
+      <form id="calculator" className={`${componentStyle}__wrapper`}>
         <DisplayRate
           state={state}
           rate={rate}

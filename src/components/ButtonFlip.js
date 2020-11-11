@@ -6,7 +6,11 @@ const componentStyle = 'ButtonFlip'
 
 const ButtonFlip = ({ handleFlip }) => {
   return (
-    <button onClick={handleFlip} className={`${componentStyle}__flipper`}>
+    <button
+      type="button"
+      onClick={handleFlip}
+      className={`${componentStyle}__flipper`}
+    >
       <img alt="Flip currency" src={flip} />
     </button>
   )
