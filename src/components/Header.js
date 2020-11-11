@@ -3,7 +3,12 @@ import './Header.scss'
 
 const Header = () => (
   <header className="Header">
-    <img className="Header__logo" alt="Logo Revolut" src={logo} />
+    <img
+      data-testid="logo"
+      className="Header__logo"
+      alt="Logo Revolut"
+      src={logo}
+    />
   </header>
 )
 
