@@ -1,6 +1,6 @@
 # Revolut Calculator Challange 🚀
 
-![App preview](https://i.imgur.com/wGXLIzT.png)
+![App preview](https://i.imgur.com/ykxy81Z.png)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) for fast and easy start. On top of that the app uses [axios](https://github.com/axios/axios) and [node-sass](https://github.com/sass/node-sass).
 
