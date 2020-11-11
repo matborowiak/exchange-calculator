@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { fireEvent, render, screen } from '@testing-library/react'
-import SelectCurrency from './SelectCurrency'
+import SelectCurrency from '../SelectCurrency'
 
 const selectHandler = jest.fn()
 
