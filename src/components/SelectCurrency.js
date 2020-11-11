@@ -13,7 +13,7 @@ const SelectCurrency = ({ value, selectHandler, availableCurrencies }) => {
       >
         {availableCurrencies.map((currency) => (
           <option key={currency} value={currency}>
-            {currency.toUpperCase()}
+            {currency}
           </option>
         ))}
       </select>

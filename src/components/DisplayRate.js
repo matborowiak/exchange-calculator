@@ -12,8 +12,8 @@ const DisplayRate = ({ rate, loading, state }) => {
           <p>...loading </p>
         ) : (
           <p>
-            {`${currencySymbols[state.haveCurrency.toUpperCase()]}1 = ${
-              currencySymbols[state.getCurrency.toUpperCase()]
+            {`${currencySymbols[state.haveCurrency]}1 = ${
+              currencySymbols[state.getCurrency]
             }${rate.toFixed(4)}`}
           </p>
         )}

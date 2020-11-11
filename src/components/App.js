@@ -7,10 +7,10 @@ function App() {
     <div className="App">
       <Header />
       <Calculator
-        exchangeBaseCurrency="usd"
-        defaultHave="eur"
-        defaultGet="gbp"
-        availableCurrencies={['usd', 'eur', 'gbp']}
+        exchangeBaseCurrency="USD"
+        defaultHave="EUR"
+        defaultGet="GBP"
+        availableCurrencies={['USD', 'EUR', 'GBP']}
       />
     </div>
   )

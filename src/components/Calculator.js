@@ -24,9 +24,9 @@ const Calculator = ({
   availableCurrencies,
 }) => {
   const [pockets, setPockets] = useState({
-    usd: 350,
-    eur: 200,
-    gbp: 500,
+    USD: 350,
+    EUR: 200,
+    GBP: 500,
   })
 
   const [state, setState] = useState({
@@ -92,8 +92,8 @@ const Calculator = ({
 
   // recalculate rate
   useEffect(() => {
-    const getCurrency = state.getCurrency.toUpperCase()
-    const haveCurrency = state.haveCurrency.toUpperCase()
+    const getCurrency = state.getCurrency
+    const haveCurrency = state.haveCurrency
     if (fetchRateState.pair) {
       if (state.haveCurrency === exchangeBaseCurrency) {
         const getRate = fetchRateState.pair[getCurrency]

@@ -9,9 +9,9 @@ const fetchRates = async (have, get, base) => {
       const data = response.data.rates
       //validate
       if (
-        (base === have && data[get.toUpperCase()]) ||
-        (base === get && data[have.toUpperCase()]) ||
-        (data[have.toUpperCase()] && data[get.toUpperCase()])
+        (base === have && data[get]) ||
+        (base === get && data[have]) ||
+        (data[have] && data[get])
       ) {
         return data
       } else {
@@ -25,9 +25,9 @@ const fetchRates = async (have, get, base) => {
   // const data = response.data.rates
   // //validate
   // if (
-  //   (base === have && data[get.toUpperCase()]) ||
-  //   (base === get && data[have.toUpperCase()]) ||
-  //   (data[have.toUpperCase()] && data[get.toUpperCase()])
+  //   (base === have && data[get]) ||
+  //   (base === get && data[have]) ||
+  //   (data[have] && data[get])
   // ) {
   //   console.log('RETURNING DATA')
   //   return data

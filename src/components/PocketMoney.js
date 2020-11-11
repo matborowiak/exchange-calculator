@@ -5,7 +5,7 @@ import './PocketMoney.scss'
 const componentStyle = 'PocketMoney'
 
 const PocketMoney = ({ pockets, currency }) => {
-  const currencySymbol = currencySymbols[currency.toUpperCase()]
+  const currencySymbol = currencySymbols[currency]
   return (
     <div className={componentStyle}>
       <p>{`You have: ${currencySymbol} ${pockets[currency].toFixed(2)}`}</p>
