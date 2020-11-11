@@ -16,3 +16,8 @@
     width: 25px;
   }
 }
+
+.ButtonFlip__flipper:focus {
+  border-radius: 8px;
+  @include revolut-focus;
+}

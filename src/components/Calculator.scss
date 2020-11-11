@@ -24,11 +24,6 @@
   background-color: #ffffff;
 }
 
-.Calculator__flipper:focus {
-  border-radius: 8px;
-  @include revolut-focus;
-}
-
 .Calculator__exchange-field {
   display: flex;
   justify-content: space-between;
