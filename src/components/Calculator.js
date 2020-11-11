@@ -46,6 +46,7 @@ const Calculator = ({
   const calculateExchange = useCallback(
     (value) => {
       if (value.length === 0 || inputSanitizer.test(value)) {
+        // check if enough funds
         if (value > pockets[state.haveCurrency]) {
           setFetchRateState({
             pair: fetchRateState.pair,
@@ -59,6 +60,7 @@ const Calculator = ({
             error: false,
           })
         }
+
         setState({
           haveCurrency: state.haveCurrency,
           getCurrency: state.getCurrency,
@@ -83,10 +85,12 @@ const Calculator = ({
     calculateExchange(value)
   }
 
+  // calculate exchange on every rate update or when swapping pockets
   useEffect(() => {
     calculateExchange(state.youHave)
   }, [state.youHave, calculateExchange])
 
+  // recalculate rate
   useEffect(() => {
     const getCurrency = state.getCurrency.toUpperCase()
     const haveCurrency = state.haveCurrency.toUpperCase()
@@ -111,8 +115,9 @@ const Calculator = ({
     exchangeBaseCurrency,
   ])
 
-  useInterval(() => {
-    fetchRates()
+  // fetch on initial load
+  useEffect(() => {
+    fetchRates(state.haveCurrency, state.getCurrency, exchangeBaseCurrency)
       .then((pair) => {
         setFetchRateState({
           pair,
@@ -123,7 +128,30 @@ const Calculator = ({
       .catch((err) => {
         console.log(err)
         setFetchRateState({
-          ...fetchRateState,
+          error: 'Connection error!',
+          loading: false,
+        })
+      })
+  }, [
+    fetchRateState.error,
+    state.haveCurrency,
+    state.getCurrency,
+    exchangeBaseCurrency,
+  ])
+
+  // fetch intervals
+  useInterval(() => {
+    fetchRates(state.haveCurrency, state.getCurrency, exchangeBaseCurrency)
+      .then((pair) => {
+        setFetchRateState({
+          pair,
+          error: fetchRateState.error ? fetchRateState.error : false,
+          loading: false,
+        })
+      })
+      .catch((err) => {
+        console.log(err)
+        setFetchRateState({
           error: 'Connection error!',
           loading: false,
         })
