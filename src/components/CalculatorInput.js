@@ -17,9 +17,13 @@ const CalculatorInput = ({
       className={`${componentStyle}`}
       disabled={disabled}
       value={value}
-      type="string"
+      type="number"
+      step={'0.01'}
       readOnly={readOnly}
       onChange={handleInput}
+      onKeyDown={(e) =>
+        ['e', 'E', '+', '-'].includes(e.key) && e.preventDefault()
+      }
       placeholder={'0.00'}
       maxLength="20"
     />
