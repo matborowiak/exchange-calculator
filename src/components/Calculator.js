@@ -16,6 +16,8 @@ import './Calculator.scss'
 
 const inputSanitizer = RegExp(/^\d+\.?(\d{1,2})?$/)
 const componentStyle = 'Calculator'
+const connectionErrorMsg = 'Connection error!'
+const notEnoughFundsErrorMsg = 'Not enough funds!'
 
 const Calculator = ({
   exchangeBaseCurrency,
@@ -51,7 +53,7 @@ const Calculator = ({
           setFetchRateState({
             pair: fetchRateState.pair,
             loading: fetchRateState.loading,
-            error: 'Not enough funds!!!',
+            error: notEnoughFundsErrorMsg,
           })
         } else {
           setFetchRateState({
@@ -90,7 +92,7 @@ const Calculator = ({
     calculateExchange(state.youHave)
   }, [state.youHave, calculateExchange])
 
-  // recalculate rate
+  // recalculate rate on fetched rates update or currency change
   useEffect(() => {
     const getCurrency = state.getCurrency
     const haveCurrency = state.haveCurrency
@@ -128,7 +130,7 @@ const Calculator = ({
       .catch((err) => {
         console.log(err)
         setFetchRateState({
-          error: 'Connection error!',
+          error: connectionErrorMsg,
           loading: false,
         })
       })
@@ -147,7 +149,7 @@ const Calculator = ({
       .catch((err) => {
         console.log(err)
         setFetchRateState({
-          error: 'Connection error!',
+          error: connectionErrorMsg,
           loading: false,
         })
       })
@@ -204,6 +206,7 @@ const Calculator = ({
               availableCurrencies={availableCurrencies}
             />
             <CalculatorInput
+              disabled={fetchRateState.error === connectionErrorMsg}
               value={state.youHave}
               handleInput={handleInput}
               plusminus="-"
@@ -219,7 +222,12 @@ const Calculator = ({
               selectHandler={selectCurrencyToHandler}
               availableCurrencies={availableCurrencies}
             />
-            <CalculatorInput readOnly value={state.youGet} plusminus="+" />
+            <CalculatorInput
+              disabled={fetchRateState.error === connectionErrorMsg}
+              readOnly
+              value={state.youGet}
+              plusminus="+"
+            />
           </WrapperFlexRow>
           <PocketMoney pockets={pockets} currency={state.getCurrency} />
         </div>
