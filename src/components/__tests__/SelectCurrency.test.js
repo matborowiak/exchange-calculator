@@ -5,13 +5,13 @@ import SelectCurrency from '../SelectCurrency'
 const selectHandler = jest.fn()
 
 const MockParent = () => {
-  const [state, setState] = useState('eur')
+  const [state, setState] = useState('EUR')
   const selectHandler = (e) => setState(e.target.value)
   return (
     <SelectCurrency
       value={state}
       selectHandler={selectHandler}
-      availableCurrencies={['eur', 'gbp', 'usd']}
+      availableCurrencies={['EUR', 'GBP', 'USD']}
     />
   )
 }
@@ -29,15 +29,17 @@ const setup = () => {
 test('SelectCurrency renders correct', () => {
   render(
     <SelectCurrency
-      value="eur"
+      value="EUR"
       selectHandler={selectHandler}
-      availableCurrencies={['eur', 'gbp', 'usd']}
+      availableCurrencies={['EUR', 'GBP', 'USD']}
     />
   )
   const options = screen.getAllByRole('option')
+
   const eur = screen.getByText('EUR')
   const gbp = screen.getByText('GBP')
   const usd = screen.getByText('USD')
+
   expect(eur).toBeInTheDocument()
   expect(gbp).toBeInTheDocument()
   expect(usd).toBeInTheDocument()
@@ -46,8 +48,11 @@ test('SelectCurrency renders correct', () => {
 
 test('Simulate select currency', async () => {
   const { select } = setup()
-  fireEvent.change(select, { target: { value: 'gbp' } })
+
+  fireEvent.change(select, { target: { value: 'GBP' } })
+
   const options = screen.getAllByRole('option')
+
   expect(options[0].selected).toBeFalsy()
   expect(options[1].selected).toBeTruthy()
   expect(options[2].selected).toBeFalsy()
