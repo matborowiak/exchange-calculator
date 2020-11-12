@@ -117,7 +117,7 @@ const Calculator = ({
 
   // fetch on initial load
   useEffect(() => {
-    fetchRates(state.haveCurrency, state.getCurrency, exchangeBaseCurrency)
+    fetchRates(defaultHave, defaultGet, exchangeBaseCurrency)
       .then((pair) => {
         setFetchRateState({
           pair,
@@ -132,12 +132,7 @@ const Calculator = ({
           loading: false,
         })
       })
-  }, [
-    fetchRateState.error,
-    state.haveCurrency,
-    state.getCurrency,
-    exchangeBaseCurrency,
-  ])
+  }, [fetchRateState.error, exchangeBaseCurrency, defaultHave, defaultGet])
 
   // fetch intervals
   useInterval(() => {
