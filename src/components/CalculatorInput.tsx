@@ -1,4 +1,13 @@
+import React from 'react'
 import './CalculatorInput.scss'
+
+type Props = {
+  value: any
+  handleInput: (e: React.ChangeEvent<HTMLInputElement>) => void
+  plusminus: string
+  readOnly: boolean
+  disabled: boolean
+}
 
 const componentStyle = 'CalculatorInput'
 
@@ -8,7 +17,7 @@ const CalculatorInput = ({
   plusminus,
   readOnly,
   disabled,
-}) => (
+}: Props) => (
   <div className={`${componentStyle}__wrapper-flex`}>
     <p className={`${componentStyle}__plusminus`}>
       {value !== '' && value > 0 && plusminus}
@@ -25,7 +34,7 @@ const CalculatorInput = ({
         ['e', 'E', '+', '-'].includes(e.key) && e.preventDefault()
       }
       placeholder={'0.00'}
-      maxLength="20"
+      maxLength={20}
     />
   </div>
 )

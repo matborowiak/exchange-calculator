@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 
 import ButtonExchange from './ButtonExchange'
 import ButtonFlip from './ButtonFlip'
@@ -9,8 +9,8 @@ import PocketMoney from './PocketMoney'
 import SelectCurrency from './SelectCurrency'
 import WrapperFlexRow from './WrapperFlexRow'
 
-import useInterval from '../functions/useInterval'
-import fetchRates from '../functions/fetchRates'
+import useInterval from '../utils/useInterval'
+import fetchRates from '../api/fetchRates'
 
 import './Calculator.scss'
 
@@ -19,13 +19,28 @@ const componentStyle = 'Calculator'
 const connectionErrorMsg = 'Connection error!'
 const notEnoughFundsErrorMsg = 'Not enough funds!'
 
+type FetchRateState = {
+  pair?: Record<string, number>
+  error: boolean | string
+  loading: boolean
+}
+
+export type Pockets = Record<string, number>
+
+type Props = {
+  exchangeBaseCurrency: string
+  defaultHave: string
+  defaultGet: string
+  availableCurrencies: Array<string>
+}
+
 const Calculator = ({
   exchangeBaseCurrency,
   defaultHave,
   defaultGet,
   availableCurrencies,
-}) => {
-  const [pockets, setPockets] = useState({
+}: Props) => {
+  const [pockets, setPockets] = useState<Pockets>({
     USD: 350,
     EUR: 200,
     GBP: 500,
@@ -38,18 +53,19 @@ const Calculator = ({
     youHave: '',
   })
 
-  const [fetchRateState, setFetchRateState] = useState({
+  const [fetchRateState, setFetchRateState] = useState<FetchRateState>({
     error: false,
     loading: true,
   })
 
   const [rate, setRate] = useState(1)
 
+  // refactor edit single field
   const calculateExchange = useCallback(
     (value) => {
       if (value.length === 0 || inputSanitizer.test(value)) {
-        // check if enough funds
-        if (value > pockets[state.haveCurrency]) {
+        const currencyKey: keyof Pockets = state.haveCurrency
+        if (value > pockets[currencyKey]) {
           setFetchRateState({
             pair: fetchRateState.pair,
             loading: fetchRateState.loading,
@@ -82,17 +98,15 @@ const Calculator = ({
     ]
   )
 
-  const handleInput = (e) => {
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target
     calculateExchange(value)
   }
 
-  // calculate exchange on every rate update or when swapping pockets
   useEffect(() => {
     calculateExchange(state.youHave)
   }, [state.youHave, calculateExchange])
 
-  // recalculate rate on fetched rates update or currency change
   useEffect(() => {
     const getCurrency = state.getCurrency
     const haveCurrency = state.haveCurrency
@@ -117,7 +131,6 @@ const Calculator = ({
     exchangeBaseCurrency,
   ])
 
-  // fetch on initial load
   useEffect(() => {
     fetchRates(defaultHave, defaultGet, exchangeBaseCurrency)
       .then((pair) => {
@@ -130,13 +143,13 @@ const Calculator = ({
       .catch((err) => {
         console.log(err)
         setFetchRateState({
+          pair: {},
           error: connectionErrorMsg,
           loading: false,
         })
       })
   }, [fetchRateState.error, exchangeBaseCurrency, defaultHave, defaultGet])
 
-  // fetch intervals
   useInterval(() => {
     fetchRates(state.haveCurrency, state.getCurrency, exchangeBaseCurrency)
       .then((pair) => {
@@ -149,13 +162,15 @@ const Calculator = ({
       .catch((err) => {
         console.log(err)
         setFetchRateState({
+          pair: {},
           error: connectionErrorMsg,
           loading: false,
         })
       })
   }, 10000)
 
-  const handleFlip = (e) => {
+  // handle flip for button should be different than handling flip from code logic
+  const handleFlip = (e?: React.MouseEvent<HTMLButtonElement>) => {
     e && e.preventDefault()
     setState({
       ...state,
@@ -164,7 +179,9 @@ const Calculator = ({
     })
   }
 
-  const selectCurrencyFromHandler = (e) => {
+  const selectCurrencyFromHandler = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     const { value } = e.target
     if (value === state.getCurrency) {
       handleFlip()
@@ -177,7 +194,7 @@ const Calculator = ({
     }
   }
 
-  const selectCurrencyToHandler = (e) => {
+  const selectCurrencyToHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target
     if (value === state.haveCurrency) {
       handleFlip()
@@ -208,6 +225,7 @@ const Calculator = ({
             <CalculatorInput
               disabled={fetchRateState.error === connectionErrorMsg}
               value={state.youHave}
+              readOnly={false}
               handleInput={handleInput}
               plusminus="-"
             />
@@ -226,6 +244,7 @@ const Calculator = ({
               disabled={fetchRateState.error === connectionErrorMsg}
               readOnly
               value={state.youGet}
+              handleInput={() => null}
               plusminus="+"
             />
           </WrapperFlexRow>

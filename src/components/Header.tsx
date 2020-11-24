@@ -1,3 +1,5 @@
+import React from 'react'
+
 import logo from '../assets/logo_revolut.png'
 import './Header.scss'
 

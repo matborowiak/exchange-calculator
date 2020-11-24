@@ -1,8 +1,20 @@
+import React from 'react'
+
 import './SelectCurrency.scss'
 
 const componentStyle = 'SelectCurrency'
 
-const SelectCurrency = ({ value, selectHandler, availableCurrencies }) => {
+type Props = {
+  value: string
+  selectHandler: (e: React.ChangeEvent<HTMLSelectElement>) => void
+  availableCurrencies: Array<string>
+}
+
+const SelectCurrency = ({
+  value,
+  selectHandler,
+  availableCurrencies,
+}: Props) => {
   return (
     <>
       <select

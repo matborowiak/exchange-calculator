@@ -1,3 +1,4 @@
+import React from 'react'
 import Calculator from './Calculator'
 import Header from './Header'
 import './App.scss'
