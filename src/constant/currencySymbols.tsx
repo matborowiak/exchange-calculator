@@ -1,4 +1,6 @@
-const currencySymbols = {
+export type CurrencySymbols = Record<string, string>
+
+const currencySymbols: CurrencySymbols = {
   USD: '$', // US Dollar
   EUR: '€', // Euro
   CRC: '₡', // Costa Rican Colón
