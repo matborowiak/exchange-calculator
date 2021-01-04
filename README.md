@@ -1,4 +1,4 @@
-# Revolut Calculator Challange 🚀
+# React Exchange calculator 🚀
 
 ![App preview](https://i.imgur.com/ykxy81Z.png)
 
