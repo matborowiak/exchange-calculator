@@ -14,7 +14,9 @@ type Props = {
 const componentStyle = 'DisplayRate'
 
 const DisplayRate = ({ rate, loading, state }: Props) => {
-  const symbol: keyof CurrencySymbols = state.getCurrency
+  const getSymbol: keyof CurrencySymbols = state.getCurrency
+  const haveSymbol: keyof CurrencySymbols = state.haveCurrency
+
   return (
     <div className={componentStyle}>
       <div className={`${componentStyle}__wrapper`}>
@@ -22,8 +24,8 @@ const DisplayRate = ({ rate, loading, state }: Props) => {
           <p>...loading </p>
         ) : (
           <p>
-            {`${currencySymbols[symbol]}1 = ${
-              currencySymbols[symbol]
+            {`${currencySymbols[haveSymbol]}1 = ${
+              currencySymbols[getSymbol]
             }${rate.toFixed(4)}`}
           </p>
         )}
