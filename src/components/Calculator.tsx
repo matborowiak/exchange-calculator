@@ -9,6 +9,7 @@ import PocketMoney from './PocketMoney'
 import SelectCurrency from './SelectCurrency'
 import WrapperFlexRow from './WrapperFlexRow'
 
+import centifyStringValue from '../utils/centifyStringValue'
 import useInterval from '../utils/useInterval'
 import fetchRates from '../api/fetchRates'
 
@@ -63,8 +64,12 @@ const Calculator = ({
   // refactor edit single field
   const calculateExchange = useCallback(
     (value) => {
+      const centifiedValue = centifyStringValue(value)
+      const centifiedRate = centifyStringValue(rate.toString())
+
       if (value.length === 0 || inputSanitizer.test(value)) {
         const currencyKey: keyof Pockets = state.haveCurrency
+
         if (value > pockets[currencyKey]) {
           setFetchRateState({
             pair: fetchRateState.pair,
@@ -83,7 +88,9 @@ const Calculator = ({
           haveCurrency: state.haveCurrency,
           getCurrency: state.getCurrency,
           youHave: value,
-          youGet: (value * rate).toFixed(2),
+          youGet: (
+            Math.round((centifiedValue * centifiedRate) / 100) / 100
+          ).toFixed(2),
         })
       }
     },
