@@ -2,7 +2,7 @@ import React from 'react'
 
 import './WrapperFlexRow.scss'
 
-type Props = {
+interface Props {
   children: React.ReactNode
 }
 

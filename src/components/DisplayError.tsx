@@ -1,6 +1,6 @@
 import React from 'react'
 
-type Props = {
+interface Props {
   error: string | boolean
 }
 const DisplayError = ({ error }: Props) => {

@@ -1,12 +1,11 @@
 import React from 'react'
 
 import currencySymbols from '../constant/currencySymbols'
-import { Pockets } from './Calculator'
 
 import './PocketMoney.scss'
 
-type Props = {
-  pockets: Pockets
+interface Props {
+  pockets: Record<string, number>
   currency: string
 }
 

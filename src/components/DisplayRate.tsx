@@ -5,7 +5,7 @@ import { CurrencySymbols } from '../constant/currencySymbols'
 
 import './DisplayRate.scss'
 
-type Props = {
+interface Props {
   rate: number
   loading: boolean
   state: { haveCurrency: string; getCurrency: string }

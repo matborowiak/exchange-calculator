@@ -4,7 +4,7 @@ import './SelectCurrency.scss'
 
 const componentStyle = 'SelectCurrency'
 
-type Props = {
+interface Props {
   value: string
   selectHandler: (e: React.ChangeEvent<HTMLSelectElement>) => void
   availableCurrencies: Array<string>
