@@ -1,8 +1,9 @@
 import React, { MouseEvent } from 'react'
 import './ButtonExchange.scss'
-import { Pockets } from './App'
 
 const componentStyle = 'ButtonExchange'
+
+type Pockets = Record<string, number>
 
 interface Props {
   state: {
