@@ -3,7 +3,9 @@ import flip from '../assets/exchange.svg'
 
 import './ButtonFlip.scss'
 
-type Props = { handleFlip: (e: React.MouseEvent<HTMLButtonElement>) => void }
+interface Props {
+  handleFlip: (e: React.MouseEvent<HTMLButtonElement>) => void
+}
 
 const componentStyle = 'ButtonFlip'
 

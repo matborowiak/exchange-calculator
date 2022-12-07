@@ -1,10 +1,10 @@
 import React, { MouseEvent } from 'react'
 import './ButtonExchange.scss'
-import { Pockets } from './Calculator'
+import { Pockets } from './App'
 
 const componentStyle = 'ButtonExchange'
 
-type Props = {
+interface Props {
   state: {
     haveCurrency: string
     getCurrency: string
