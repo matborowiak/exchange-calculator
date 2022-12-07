@@ -155,7 +155,8 @@ const Calculator = ({
           loading: false,
         })
       })
-  }, [fetchRateState.error, exchangeBaseCurrency, defaultHave, defaultGet])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [exchangeBaseCurrency, defaultHave, defaultGet])
 
   useInterval(() => {
     fetchRates(state.haveCurrency, state.getCurrency, exchangeBaseCurrency)
